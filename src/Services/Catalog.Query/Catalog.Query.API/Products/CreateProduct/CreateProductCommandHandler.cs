@@ -1,11 +1,12 @@
 ﻿using BuildingBlocks.CQRS;
 using Catalog.Query.API.Models;
+using FluentValidation;
 using Marten;
 
 namespace Catalog.Query.API.Products.CreateProduct;
 
 public record CreateProductCommand(
-    string Name, 
+    string Name,
     string Description,
     List<string> Category,
     string ImageFile,
@@ -13,7 +14,7 @@ public record CreateProductCommand(
 
 public record CreateProductResult(Guid Id);
 
-internal class CreateProductCommandHandler(IDocumentSession session) 
+internal class CreateProductCommandHandler(IDocumentSession session)
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
